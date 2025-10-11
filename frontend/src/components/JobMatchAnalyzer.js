@@ -74,8 +74,11 @@ Technical Skills
   // END OF CANDIDATE INFORMATION
   // ==========================================
 
-  const OPENROUTER_API_KEY = API_Key; // Replace with your actual API key
-
+  const OPENROUTER_API_KEY = process.env.REACT_APP_OPENROUTER_API_KEY; // Replace with your actual API key
+  if (!OPENROUTER_API_KEY) {
+  console.error('⚠️ OpenRouter API key is missing!');
+  console.error('Add REACT_APP_OPENROUTER_API_KEY to your .env file (local) or Vercel environment variables (production)');
+}
   useEffect(() => {
     if (jobTextareaRef.current) {
       jobTextareaRef.current.style.height = 'auto';
