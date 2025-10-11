@@ -74,7 +74,7 @@ Technical Skills
   // END OF CANDIDATE INFORMATION
   // ==========================================
 
-  const OPENROUTER_API_KEY = "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"; // Replace with your actual API key
+  const OPENROUTER_API_KEY = API_Key; // Replace with your actual API key
 
   useEffect(() => {
     if (jobTextareaRef.current) {
