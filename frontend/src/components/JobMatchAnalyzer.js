@@ -104,10 +104,10 @@ Technical Skills
         'X-Title': 'Portfolio Job Match Analyzer'
       },
       body: JSON.stringify({
-        model: 'mistralai/mistral-7b-instruct:free',
+        model: 'moonshotai/kimi-k2:free',
         messages: [{
           role: 'user',
-          content: `You are writing a compelling professional analysis that showcases why this candidate is an excellent fit for the role. Your tone should be professional yet enthusiastic, highlighting transferable skills and concrete achievements.
+          content: `You are writing a compelling professional analysis that represents me and why I, as a candidate, am an excellent fit for the role. Your tone should be professional, very enthusiastic, Human style of conversation with humor, highlighting transferable skills and concrete achievements.
 
 JOB DESCRIPTION:
 ${jobDesc}
@@ -116,28 +116,29 @@ CANDIDATE RESUME/PROFILE:
 ${CANDIDATE_INFO}
 
 YOUR TASK:
-Create a compelling cover letter-style analysis that advertises this candidate's fit for the role. Focus on transferable skills, relevant achievements, and how their experience directly addresses the job requirements.
+Create a compelling cover letter-style analysis that advertises my fit for the role. Focus on transferable skills, relevant achievements, and how my experience directly addresses the job requirements.
 
 Respond with ONLY a valid JSON object (no markdown, no extra text, no code blocks) in this exact format:
 {
   "matchScore": <number between 0-100, be realistic but highlight strengths>,
   "bestFitPoints": [
-    "<compelling statement about why this candidate excels for this role, using their specific achievements and experience>",
+    "<compelling statement about why do I excel for this role, using my specific achievements and experience>",
     "<another strong selling point with concrete numbers or outcomes>",
     "<highlight transferable skills and how they map to job requirements>",
     (provide 5-6 persuasive points)
   ],
   "topSkills": [
     {
-      "skill": "<specific skill from job requirements that candidate possesses>",
-      "context": "<1-2 sentences describing a concrete example of how they used this skill in their work>"
+      "skill": "<specific skill from job requirements that I possess>",
+      "context": "<1-2 sentences describing a concrete example of how I used this skill in their work>"
     },
     (provide 6 matching skills with compelling, specific evidence)
   ]
 }
 
 IMPORTANT:
-- Write in a professional yet enthusiastic tone
+- Be honest and straight donot need to butter up and match the non relevant positions, distinguish the non relevant role with less than 60% match score.
+- Write in a professional, very enthusiastic, Human style of conversation with humor.
 - Reference specific achievements, metrics, and projects from the resume
 - Show how their experience directly translates to the job requirements
 - Highlight transferable skills even if exact job titles don't match
@@ -145,7 +146,7 @@ IMPORTANT:
 - Make the candidate stand out as an exceptional fit`
         }],
         temperature: 0.7,
-        max_tokens: 2000
+        max_tokens: 7000
       })
     });
 
