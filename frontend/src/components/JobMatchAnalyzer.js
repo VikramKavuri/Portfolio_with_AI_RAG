@@ -104,7 +104,7 @@ Technical Skills
         'X-Title': 'Portfolio Job Match Analyzer'
       },
       body: JSON.stringify({
-        model: 'moonshotai/kimi-k2:free',
+        model: 'openai/gpt-oss-20b:free',
         messages: [{
           role: 'user',
           content: `You are writing a compelling professional analysis that represents me and why I, as a candidate, am an excellent fit for the role. Your tone should be professional, very enthusiastic, Human style of conversation with humor, highlighting transferable skills and concrete achievements.
