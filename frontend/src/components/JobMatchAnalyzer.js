@@ -27,8 +27,7 @@ Technical Skills
  Experience
  Data Analytics Engineer | The Arc Erie County New York — New York, US
  Jan 2025– Present
- • Engineered automated dashboards in Tableau, and SSRS shaping and refreshes, cutting manual reporting by
- 40% while surfacing real-time KPIs for compliance and executive operational reviews.
+ • Enabled data-driven decision-making for executive and compliance teams by delivering real-time KPIs through automated Tableau and SSRS dashboards. This solution reduced manual reporting efforts by 40%, freeing up resources for higher-value analysis.
  • Gathered healthcare claims, finance, and HR data from NetSuite, Dayforce, and Precision Care APIs, integrating
  into SQL data warehouse to give C-suite a consolidated unified view of billing, AR, POs, and claims.
  • Formulated cohort analyses on patient-service utilization and budget monitoring, profiling many records to
