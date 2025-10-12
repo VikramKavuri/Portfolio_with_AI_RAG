@@ -214,29 +214,39 @@ IMPORTANT:
   
   return (
     <div className="w-full">
-      {/* Collapsed State - Always visible */}
-      <div className="w-full max-w-4xl mx-auto mb-8">
-        <button
-          onClick={() => setIsExpanded(!isExpanded)}
-          className="w-full bg-white/80 backdrop-blur-md rounded-2xl shadow-lg border border-gray-200/80 p-6 hover:shadow-xl transition-all duration-300"
-        >
-          <div className="flex items-center justify-between">
-            <div className="text-left">
-              <h3 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-2">
-                🎯 Looking for the perfect fit?
-              </h3>
-              <p className="text-sm sm:text-base text-gray-600">
-                Paste your job description to see how my experience matches your needs
-              </p>
-            </div>
-            {isExpanded ? (
-              <ChevronUp className="w-6 h-6 text-gray-600 flex-shrink-0" />
-            ) : (
-              <ChevronDown className="w-6 h-6 text-gray-600 flex-shrink-0" />
-            )}
-          </div>
-        </button>
+  {/* Collapsed State - Always visible */}
+  <div className="w-full max-w-4xl mx-auto mb-8">
+    <button
+      onClick={() => setIsExpanded(!isExpanded)}
+      className="w-full bg-white/80 backdrop-blur-md rounded-2xl shadow-lg border border-gray-200/80 p-6 hover:shadow-xl transition-all duration-300"
+    >
+      <div className="flex items-center justify-between">
+        <div className="text-left">
+          <h3 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-2 leading-tight">
+            {/* Inline emoji-sized image */}
+            <img
+              src="search.png"
+              alt=""                 /* decorative */
+              aria-hidden="true"
+              className="inline-block align-text-bottom mr-2"
+              style={{ width: '1em', height: '1em' }}
+            />
+            Looking for the perfect fit?
+          </h3>
+          <p className="text-sm sm:text-base text-gray-600">
+            Paste your job description to see how my experience matches your needs
+          </p>
+        </div>
+        { isExpanded ? (
+          <ChevronUp className="w-6 h-6 text-gray-600 flex-shrink-0" />
+        ) : (
+          <ChevronDown className="w-6 h-6 text-gray-600 flex-shrink-0" />
+        )}
       </div>
+    </button>
+  </div>
+</div>
+
 
       {/* Expanded State */}
       <AnimatePresence>
