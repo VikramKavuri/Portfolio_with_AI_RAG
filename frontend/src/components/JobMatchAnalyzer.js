@@ -229,7 +229,7 @@ IMPORTANT:
                   alt=""
                   aria-hidden="true"
                   className="inline-block align-text-bottom mr-2 select-none pointer-events-none"
-                  style={{ width: '1em', height: '1em', verticalAlign: '-0.15em' }}
+                  style={{ width: '2em', height: '2em', verticalAlign: '-0.15em' }}
                 />
                 Looking for the perfect fit?
               </h3>
