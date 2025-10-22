@@ -109,7 +109,7 @@ export const mockSkills = {
           name: "GCP",
           level: 80,
           iconType: "image",
-          icon: "https://www.serviops.ca/wp-content/uploads/et_temp/Google-Cloud-Platform-GCP-Logo-95213_1080x675.png"
+          icon: "https://e7.pngegg.com/pngimages/834/472/png-clipart-google-cloud-icon-google-cloud-platform-cloud-computing-amazon-web-services-virtual-private-cloud-cloud-computing-text-trademark.png"
         },
         {
           name: "Databricks",
