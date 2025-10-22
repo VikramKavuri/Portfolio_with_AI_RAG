@@ -261,36 +261,3 @@ export const mockContactInfo = {
   availability: "Open to new opportunities",
   timezone: "EST (Eastern Standard Time)"
 };
-
-export const mockBlogPosts = [
-  {
-    id: 1,
-    title: "Building Scalable Data Pipelines with Apache Airflow",
-    excerpt: "Learn how to design and implement robust data pipelines that can handle massive datasets efficiently.",
-    date: "2024-12-15",
-    readTime: "8 min read",
-    tags: ["Data Engineering", "Apache Airflow", "ETL"],
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=250&fit=crop",
-    slug: "scalable-data-pipelines-airflow"
-  },
-  {
-    id: 2,
-    title: "Machine Learning in Production: Best Practices",
-    excerpt: "Essential strategies for deploying and maintaining ML models in production environments.",
-    date: "2024-11-28",
-    readTime: "10 min read",
-    tags: ["Machine Learning", "MLOps", "Production"],
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop",
-    slug: "ml-production-best-practices"
-  },
-  {
-    id: 3,
-    title: "Data Governance in the Cloud Era",
-    excerpt: "How to implement effective data governance strategies for cloud-native data architectures.",
-    date: "2024-11-10",
-    readTime: "6 min read",
-    tags: ["Data Governance", "Cloud", "Security"],
-    image: "https://images.pexels.com/photos/669619/pexels-photo-669619.jpeg?w=400&h=250&fit=crop",
-    slug: "data-governance-cloud-era"
-  }
-];
