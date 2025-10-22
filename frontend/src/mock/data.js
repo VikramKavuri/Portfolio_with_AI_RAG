@@ -109,7 +109,7 @@ export const mockSkills = {
           name: "GCP",
           level: 80,
           iconType: "image",
-          icon: "https://www.freecodecamp.org/news/content/images/2020/10/gcp.png"
+          icon: "https://www.serviops.ca/wp-content/uploads/et_temp/Google-Cloud-Platform-GCP-Logo-95213_1080x675.png"
         },
         {
           name: "Databricks",
