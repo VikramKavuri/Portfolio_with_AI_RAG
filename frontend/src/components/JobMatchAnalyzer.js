@@ -15,59 +15,52 @@ const JobMatchAnalyzer = ({ onAnalysisComplete }) => {
   // 📝 CANDIDATE INFORMATION - EDIT THIS SECTION
   // ==========================================
   const CANDIDATE_INFO = `
-THRIVIKRAMA RAO
-Data Engineer & Analytics Professional
-Location: Buffalo, NY
-
+ThrivikramaRao Kavuri
+thrivikr@buffalo.edu | 716-253-5373 | Thrivikramarao Kavuri | Vikram Kavuri | TR
 Technical Skills
- • BI Tools: Tableau, Power BI, Qlik Sense, Apache Superset, SSRS
- • Programming & Libraries: Python, PySpark, SQL, PowerShell, R, Java, LaTeX; Pandas, NumPy, Scikit-learn
- • Databases & Cloud: Snowflake, PostgreSQL, MS-SQL, AWS (S3, Redshift, SageMaker, CloudWatch), Azure
- • ETL Tools: Azure Data Factory, SSIS, Apache Airflow
- Experience
- Data Analytics Engineer | The Arc Erie County New York — New York, US
- Jan 2025– Present
- • Enabled data-driven decision-making for executive and compliance teams by delivering real-time KPIs through automated Tableau and SSRS dashboards. This solution reduced manual reporting efforts by 40%, freeing up resources for higher-value analysis.
- • Gathered healthcare claims, finance, and HR data from NetSuite, Dayforce, and Precision Care APIs, integrating
- into SQL data warehouse to give C-suite a consolidated unified view of billing, AR, POs, and claims.
- • Formulated cohort analyses on patient-service utilization and budget monitoring, profiling many records to
- expose service gaps, guiding prioritized interventions and targeted resource allocation across programs.
- • Collaborated with Property, Operations, Finance, and Clinic departments to define KPIs, document mappings,
- and standardize reporting templates, elevating dashboard usability, adoption, and governance department-wide.
- Data Science Analyst | Accenture India Pvt Ltd — Bangalore, India
- May 2021– Jan 2023
- • Developed 37 interactive dashboards in Power BI and Qlik Sense, integrating validated pipelines to deliver
- accurate, real-time insights into campaign performance, revenue trends, and operational forecasts.
- • Designed advanced segmentation frameworks combining demographics, transaction histories, and campaign
- data, improving promotional targeting accuracy by 22% and enhancing overall marketing effectiveness.
- • Analyzed 2TB daily retail and revenue data in PySpark and Redshift, identifying purchase trends, churn
- signals, and promotional responsiveness that informed targeted offers and customer engagement strategies.
- • Implemented uplift modeling and A/B test evaluations using Python to enable data-driven assessment of
- promotional campaigns, optimizing conversion rates across multiple product categories while ensuring GDPR
- compliance.
- Business Analyst | SRIT Pvt Ltd — Bangalore, India
- Jan 2020– Apr 2021
- • Translated healthcare requirements into FRDs and BRDs through stakeholder interviews, analyzing relational
- data in PostgreSQL to improve project clarity and reduce integration errors.
- • Led Agile sprints and stand-ups for a 13-member team, using MS Project for budget tracking, Visio for process
- mapping, and JIRA for risk and deliverable management.
- • Defined business rules for validating and transforming healthcare datasets, ensuring accurate, high-quality
- inputs for interactive Power BI and Apache Superset dashboards, operational decision-making across C-suite.
- Education
- Masters in Data Science, University at Buffalo, GPA: 3.7/4.0
- Bachelor's in Computer Science, Karunya University, GPA: 3.4/4.0
- Projects
- Jan 2023– May 2024
- Jun 2016– Jul 2020
- Telco Customer Churn Prediction {Tools: Python, Flask, Random Forest, XGBoost, Excel}
- • Built a churn prediction workflow using Flask and XGBoost (87% ROC-AUC), modeling customer contracts,
- add-ons, and payments to identify high-risk cohorts and recommend targeted retention actions.
- Hardware Distribution Analytics Command Center {Tools: Tableau, Python, SQL, Microsoft Excel}
- • Architected star-schema data model and SQL ETL workflows integrating multi-source sales data, enabling
- Tableau dashboards with real-time revenue insights across cities, reducing reporting latency and decision cycles.
- Certifications
- • Generative AI Professional (Oracle)
- • Fabric Data Engineer Associate (Azure)
+• BI Tools: Tableau, Power BI, Qlik Sense, Apache Superset, SSRS
+• Programming & Libraries: Python, PySpark, SQL, PowerShell, R, Java, LaTeX; Pandas, NumPy, Scikit-learn
+• Databases & Cloud: Snowflake, PostgreSQL, MS-SQL, GCP, AWS (S3, Redshift, SageMaker, CloudWatch)
+• ETL Tools: Apache Airflow, Azure Data Factory, SSIS
+Experience
+Data Analytics Engineer | The Arc Erie County New York — New York, US Jan 2025 – Present
+• Fine-tuned Qwen2.5-VL via LoRA for field-targeted extraction, achieving 87% accuracy on 10K handwritten
+forms in 2 months, enabling HIPAA-compliant GenAI deployment across 284 residential stakeholders.
+• Designed regex-based PHI masking engine with L-diversity validation, securing 60K+ patient records across 8
+AI dashboards, passed internal audit without exception, enforcing zero-risk compliance standards.
+• Formulated cohort analyses in Tableau on AR/AP finance data, patient-service utilization, and budget
+monitoring, profiling thousands of healthcare and finance records in SQL warehouse to expose persistent service
+gaps, driving prioritized interventions and optimizing resource allocation across disability support programs.
+• Collaborated with Property, Residential, Finance, and Clinic departments to define KPIs, document mappings,
+and standardize reporting templates, elevating dashboard usability, adoption, and governance department-wide.
+Data Science Analyst | Accenture India Pvt Ltd — Bangalore, India May 2021 – Jan 2023
+• Built demand forecasting models using Prophet, ARIMA, and XGBoost for BP’s 2,800+ EU stores, achieving
+91% accuracy (MAPE 8.7%) on 15K SKUs, cutting stockouts by 18% and perishable waste by 23%.
+• Architected GCP pipelines processing 5TB daily POS data with PySpark on Dataproc and BigQuery
+partitioning/clustering, delivering <2s query performance and 35% cost reduction via lifecycle policies.
+• Automated ML deployment via Cloud Build, Terraform with drift monitoring, reducing deployment time 60%
+(3 days to 4 hours) and eliminating 75% of manual validation through CI/CD gates.
+• Deployed 37 Power BI dashboards with DAX for forecast accuracy, inventory KPIs, and promotional ROI across
+country→store→product hierarchies, training 450+ stakeholders and boosting adoption by 40%.
+Business Analyst | SRIT Pvt Ltd — Bangalore, India Jan 2020 – Apr 2021
+• Translated healthcare requirements into FRDs and BRDs through stakeholder interviews, analyzing relational
+data in PostgreSQL to improve project clarity and reduce integration errors.
+• Led Agile sprints and stand-ups for a 13-member team, using MS Project for budget tracking, Visio for process
+mapping, and JIRA for risk and deliverable management.
+• Defined business rules for validating and transforming healthcare datasets, ensuring accurate, high-quality
+inputs for interactive Power BI and Apache Superset dashboards, operational decision-making across C-suite.
+Education
+Masters in Data Science, University at Buffalo, GPA: 3.7/4.0 Jan 2023 – May 2024
+Bachelor’s in Computer Science, Karunya University, GPA: 3.4/4.0 Jun 2016 – Jul 2020
+Projects
+Telco Customer Churn Prediction {Tools: Python, Flask, Random Forest, XGBoost, Excel} §
+• Established a churn prediction workflow using Flask and XGBoost (87% ROC-AUC), modeling customer
+contracts, add-ons, and payments to identify high-risk cohorts and recommend targeted retention actions.
+Real-Time Stock Market Data Pipeline {Tools: PySpark, Databricks, GCP, Apache Airflow} §
+• Devised a real-time stock market data pipeline, leveraging PySpark for distributed processing, GCP Big Query
+for scalable storage, Databricks for optimized querying, and Airflow for orchestration cutting query latency 30%.
+Certifications
+• Generative AI Professional (Oracle) • Fabric Data Engineer Associate (Azure)
 `;
   // ==========================================
   // END OF CANDIDATE INFORMATION
