@@ -60,31 +60,31 @@ export const mockSkills = {
         },
         {
           name: "SQL",
-          level: 90,
+          level: 95,
           iconType: "image",
           icon: "https://img.favpng.com/6/22/18/clip-art-microsoft-azure-sql-database-microsoft-sql-server-png-favpng-vuy3jBrd8YXkMut1vRTrG8B3F.jpg"
         },
         {
           name: "PySpark",
-          level: 85,
+          level: 80,
           iconType: "image",
           icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apachespark/apachespark-original.svg"
         },
         {
           name: "PowerShell",
-          level: 80,
+          level: 75,
           iconType: "image",
           icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/powershell/powershell-original.svg"
         },
         {
           name: "R",
-          level: 75,
+          level: 65,
           iconType: "image",
           icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/r/r-original.svg"
         },
         {
           name: "Java",
-          level: 70,
+          level: 60,
           iconType: "image",
           icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"
         }
@@ -101,13 +101,19 @@ export const mockSkills = {
         },
         {
           name: "Azure",
-          level: 85,
+          level: 80,
           iconType: "image",
           icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg"
         },
         {
-          name: "Databricks",
+          name: "GCP",
           level: 80,
+          iconType: "image",
+          icon: "https://www.freecodecamp.org/news/content/images/2020/10/gcp.png"
+        },
+        {
+          name: "Databricks",
+          level: 75,
           iconType: "image",
           icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRk55thBB29oWmkALZ9-rQUxrJw5tBp51KNw&s"
         },
