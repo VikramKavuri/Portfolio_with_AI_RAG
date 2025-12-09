@@ -35,7 +35,7 @@ const Hero = ({ onSkillsIdentified }) => {
             Thrivikrama Rao
           </h1>
           <h2 className="text-5xl font-light text-gray-900 mb-6 sm:mb-6">
-            Data Enthusiast
+            Data Analytics Engineer
           </h2>
         </div>
 
