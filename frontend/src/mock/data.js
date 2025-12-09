@@ -117,23 +117,17 @@ export const mockSkills = {
           iconType: "image",
           icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRk55thBB29oWmkALZ9-rQUxrJw5tBp51KNw&s"
         },
-        {
-          name: "Snowflake",
-          level: 85,
-          iconType: "image",
-          icon: "https://www.svgheart.com/wp-content/uploads/2021/11/snowflakes-christmas-winter-season-free-svg-file-SvgHeart.Com.png"
-        }
+        // {
+        //   name: "Snowflake",
+        //   level: 85,
+        //   iconType: "image",
+        //   icon: "https://www.svgheart.com/wp-content/uploads/2021/11/snowflakes-christmas-winter-season-free-svg-file-SvgHeart.Com.png"
+        // }
       ]
     },
     {
       category: "Data Tools & Technologies",
       skills: [
-        {
-          name: "Apache Airflow",
-          level: 85,
-          iconType: "image",
-          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apacheairflow/apacheairflow-original.svg"
-        },
         {
           name: "Tableau",
           level: 90,
@@ -147,10 +141,16 @@ export const mockSkills = {
           icon: "https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg"
         },
         {
-          name: "Apache Kafka",
-          level: 80,
+          name: "Apache Airflow",
+          level: 85,
           iconType: "image",
-          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apachekafka/apachekafka-original.svg"
+          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apacheairflow/apacheairflow-original.svg"
+        },
+        {
+          name: "Hadoop",
+          level: 75,
+          iconType: "image",
+          icon: "https://upload.wikimedia.org/wikipedia/commons/0/0e/Hadoop_logo.svg"
         },
         {
           name: "Docker",
@@ -160,7 +160,7 @@ export const mockSkills = {
         },
         {
           name: "SSIS",
-          level: 85,
+          level: 75,
           iconType: "image",
           icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/microsoftsqlserver/microsoftsqlserver-original.svg"
         }
@@ -176,20 +176,26 @@ export const mockSkills = {
           icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg"
         },
         {
+          name: "SQL Server",
+          level: 90,
+          iconType: "image",
+          icon: "https://www.svgrepo.com/show/303229/microsoft-sql-server-logo.svg"
+        },
+        {
           name: "Snowflake",
-          level: 80,
+          level: 85,
           iconType: "image",
           icon: "https://www.svgheart.com/wp-content/uploads/2021/11/snowflakes-christmas-winter-season-free-svg-file-SvgHeart.Com.png"
         },
         {
           name: "MySQL",
-          level: 85,
+          level: 80,
           iconType: "image",
           icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg"
         },
         {
           name: "MongoDB",
-          level: 55,
+          level: 65,
           iconType: "image",
           icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg"
         }
@@ -253,7 +259,7 @@ export const mockTestimonials = [
 ];
 
 export const mockContactInfo = {
-  email: "thrivikr@buffalo.edu",
+  email: "thrivikramaraokavuri@gmail.com",
   phone: "(716) 253-5373",
   location: "Buffalo, New York, US",
   linkedIn: "https://www.linkedin.com/in/thrivikrama-rao-kavuri-7290b6147/",
