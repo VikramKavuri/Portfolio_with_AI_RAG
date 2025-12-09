@@ -37,7 +37,7 @@ const Contact = () => {
           company: formData.company,
           subject: formData.subject,
           message: formData.message,
-          to_email: 'thrivikr@buffalo.edu'   // ← FIXED: removed escaped underscore
+          to_email: 'nani.thrivikram51@gmail.com'   // ← FIXED: removed escaped underscore
         },
         'tAgUh8kfCp_a0b60h'                   // ← FIXED: removed escaped underscore
       );
