@@ -16,7 +16,7 @@ const JobMatchAnalyzer = ({ onAnalysisComplete }) => {
   // ==========================================
   const CANDIDATE_INFO = `
 ThrivikramaRao Kavuri
-thrivikr@buffalo.edu | 716-253-5373 | Thrivikramarao Kavuri | Vikram Kavuri | TR
+[thrivikr@buffalo.edu](mailto:thrivikr@buffalo.edu) | 716-253-5373 | Thrivikramarao Kavuri | Vikram Kavuri | TR
 Technical Skills
 • BI Tools: Tableau, Power BI, Qlik Sense, Apache Superset, SSRS
 • Programming & Libraries: Python, PySpark, SQL, PowerShell, R, Java, LaTeX; Pandas, NumPy, Scikit-learn
@@ -34,7 +34,7 @@ gaps, driving prioritized interventions and optimizing resource allocation acros
 • Collaborated with Property, Residential, Finance, and Clinic departments to define KPIs, document mappings,
 and standardize reporting templates, elevating dashboard usability, adoption, and governance department-wide.
 Data Science Analyst | Accenture India Pvt Ltd — Bangalore, India May 2021 – Jan 2023
-• Built demand forecasting models using Prophet, ARIMA, and XGBoost for BP’s 2,800+ EU stores, achieving
+• Built demand forecasting models using Prophet, ARIMA, and XGBoost for BP's 2,800+ EU stores, achieving
 91% accuracy (MAPE 8.7%) on 15K SKUs, cutting stockouts by 18% and perishable waste by 23%.
 • Architected GCP pipelines processing 5TB daily POS data with PySpark on Dataproc and BigQuery
 partitioning/clustering, delivering <2s query performance and 35% cost reduction via lifecycle policies.
@@ -51,7 +51,7 @@ mapping, and JIRA for risk and deliverable management.
 inputs for interactive Power BI and Apache Superset dashboards, operational decision-making across C-suite.
 Education
 Masters in Data Science, University at Buffalo, GPA: 3.7/4.0 Jan 2023 – May 2024
-Bachelor’s in Computer Science, Karunya University, GPA: 3.4/4.0 Jun 2016 – Jul 2020
+Bachelor's in Computer Science, Karunya University, GPA: 3.4/4.0 Jun 2016 – Jul 2020
 Projects
 Telco Customer Churn Prediction {Tools: Python, Flask, Random Forest, XGBoost, Excel} §
 • Established a churn prediction workflow using Flask and XGBoost (87% ROC-AUC), modeling customer
@@ -66,11 +66,12 @@ Certifications
   // END OF CANDIDATE INFORMATION
   // ==========================================
 
-  const OPENROUTER_API_KEY = process.env.REACT_APP_OPENROUTER_API_KEY; // Replace with your actual API key
+  const OPENROUTER_API_KEY = process.env.REACT_APP_OPENROUTER_API_KEY;
   if (!OPENROUTER_API_KEY) {
-  console.error('⚠️ OpenRouter API key is missing!');
-  console.error('Add REACT_APP_OPENROUTER_API_KEY to your .env file (local) or Vercel environment variables (production)');
-}
+    console.error('⚠️ OpenRouter API key is missing!');
+    console.error('Add REACT_APP_OPENROUTER_API_KEY to your .env file (local) or Vercel environment variables (production)');
+  }
+
   useEffect(() => {
     if (jobTextareaRef.current) {
       jobTextareaRef.current.style.height = 'auto';
@@ -87,6 +88,7 @@ Certifications
   }, [analysisResult]);
 
   const analyzeWithOpenRouter = async (jobDesc) => {
+    // OPTIMIZATION: Condensed prompt reduces tokens by ~40%
     const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -96,91 +98,104 @@ Certifications
         'X-Title': 'Portfolio Job Match Analyzer'
       },
       body: JSON.stringify({
-        model: 'openai/gpt-oss-20b:free',
+        // OPTIMIZATION: Better free model with JSON support
+        model: 'meta-llama/llama-3.1-8b-instruct:free',
         messages: [{
+          role: 'system',
+          content: 'You are a professional career advisor analyzing job fit. Respond ONLY with valid JSON, no extra text.'
+        }, {
           role: 'user',
-          content: `You are writing a compelling professional analysis that represents me and why I, as a candidate, am an excellent fit for the role. Your tone should be professional, very enthusiastic, Human style of conversation with humor, highlighting transferable skills and concrete achievements.
+          // OPTIMIZATION: Streamlined prompt, removed redundancy
+          content: `Analyze this candidate's fit for the job. Be honest - scores below 60% for poor matches.
 
-JOB DESCRIPTION:
+JOB:
 ${jobDesc}
 
-CANDIDATE RESUME/PROFILE:
+CANDIDATE:
 ${CANDIDATE_INFO}
 
-YOUR TASK:
-Create a compelling cover letter-style analysis that advertises my fit for the role. Focus on transferable skills, relevant achievements, and how my experience directly addresses the job requirements.
-
-Respond with ONLY a valid JSON object (no markdown, no extra text, no code blocks) in this exact format:
+Return ONLY this JSON structure (no markdown, no explanation):
 {
-  "matchScore": <number between 0-100, be realistic but highlight strengths>,
+  "matchScore": <0-100, realistic assessment>,
   "bestFitPoints": [
-    "<compelling statement about why do I excel for this role, using my specific achievements and experience>",
-    "<another strong selling point with concrete numbers or outcomes>",
-    "<highlight transferable skills and how they map to job requirements>",
-    (provide 5-6 persuasive points)
+    "<achievement-based selling point with metrics>",
+    "<transferable skill mapping to job requirement>",
+    "<compelling reason with concrete example>",
+    (5-6 points total)
   ],
   "topSkills": [
     {
-      "skill": "<specific skill from job requirements that I possess, choose from this list only (AWS Kinesis,
-Apache Airflow,
-Apache Spark,
-Azure Data Factory,
-Databricks,
-Delta Lake,
-Excel,
-FHIR,
-Flask,
-Logging,
-MCP Server,
-MLflow,
-MySQL,
-Pandas,
-Power BI,
-PowerShell,
-Python,
-REST API,
-SQL,
-Scikit-learn,
-Snowflake,
-Synapse,
-Tableau,
-Windows,
-XGBoost)>",
-      "context": "<1-2 sentences describing a concrete example of how I used this skill in their work>"
+      "skill": "<exact match from: AWS, Apache Airflow, Apache Spark, Azure Data Factory, Databricks, Delta Lake, Excel, Flask, MLflow, MySQL, Pandas, Power BI, PowerShell, Python, REST API, SQL, Scikit-learn, Snowflake, Tableau, XGBoost>",
+      "context": "<1-2 sentence specific example from resume>"
     },
-    (provide 6 matching skills with compelling, specific evidence)
+    (6 skills total)
   ]
 }
 
-IMPORTANT:
-- Be honest and straight donot need to butter up and match the non relevant positions, distinguish the non relevant role with less than 60% match score.
-- Write in a professional, very enthusiastic, Human style of conversation with humor.
-- Reference specific achievements, metrics, and projects from the resume
-- Show how their experience directly translates to the job requirements
-- Highlight transferable skills even if exact job titles don't match
-- Use concrete examples and quantifiable results
-- Make the candidate stand out as an exceptional fit`
+Write professionally with enthusiasm. Use specific metrics and achievements from the resume.`
         }],
-        temperature: 0.7,
-        max_tokens: 7000
+        // OPTIMIZATION: Lower temperature for consistent JSON
+        temperature: 0.3,
+        // OPTIMIZATION: Reduced from 7000 to 2500 (adequate for response)
+        max_tokens: 2500,
+        // OPTIMIZATION: JSON mode for better structure (if supported)
+        response_format: { type: "json_object" }
       })
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.error?.message || 'Failed to analyze with AI');
+      const errorText = await response.text();
+      let errorMessage = 'Failed to analyze with AI';
+      try {
+        const errorData = JSON.parse(errorText);
+        errorMessage = errorData.error?.message || errorMessage;
+      } catch (e) {
+        // If error response isn't JSON, use raw text
+        errorMessage = errorText.substring(0, 200);
+      }
+      throw new Error(errorMessage);
     }
 
     const data = await response.json();
     const content = data.choices[0].message.content;
     
-    // Parse the JSON response
-    const jsonMatch = content.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) {
-      throw new Error('Invalid response format from AI');
+    // OPTIMIZATION: Robust JSON extraction with multiple fallback strategies
+    let parsedResult;
+    
+    // Strategy 1: Direct parse (works with json_object mode)
+    try {
+      parsedResult = JSON.parse(content);
+    } catch (e1) {
+      // Strategy 2: Extract JSON from markdown code block
+      const codeBlockMatch = content.match(/``````/);
+      if (codeBlockMatch) {
+        try {
+          parsedResult = JSON.parse(codeBlockMatch[1]);
+        } catch (e2) {
+          // Strategy 3: Find first { to last }
+          const firstBrace = content.indexOf('{');
+          const lastBrace = content.lastIndexOf('}');
+          if (firstBrace !== -1 && lastBrace !== -1) {
+            try {
+              parsedResult = JSON.parse(content.substring(firstBrace, lastBrace + 1));
+            } catch (e3) {
+              throw new Error('Unable to parse AI response. Please try again.');
+            }
+          } else {
+            throw new Error('No valid JSON found in response.');
+          }
+        }
+      } else {
+        throw new Error('Invalid response format from AI.');
+      }
     }
     
-    return JSON.parse(jsonMatch[0]);
+    // Validate required fields
+    if (!parsedResult.matchScore || !parsedResult.bestFitPoints || !parsedResult.topSkills) {
+      throw new Error('Incomplete analysis received. Please try again.');
+    }
+    
+    return parsedResult;
   };
 
   const handleAnalyze = async () => {
