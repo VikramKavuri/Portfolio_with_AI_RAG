@@ -24,6 +24,15 @@ Technical Skills
 • ETL Tools: Apache Airflow, Azure Data Factory, SSIS
 Experience
 Data Analytics Engineer | The Arc Erie County New York — New York, US Jan 2025 – Present
+• Engineered modular dbt-like SQL transformations and incremental pipelines unifying NetSuite, AVID, and
+billing data into Snowflake tables, reducing reconciliation by 35%, improving consistency for finance and
+operations teams.
+• Designed star-schema data models for service use, staffing, and budgets, restructuring fragmented sources to
+cut query latency 30% and enable reliable, self-service analytics across operational teams.
+• Implemented data-quality controls using Python (Pandas, great_expectations) and T-SQL tests to detect
+schema drift, null spikes, and join issues, maintaining 99% reliability for mission-critical dashboards.
+• Delivered executive dashboards structured with narrative storytelling, anomaly signals, and layered trend
+analysis, enabling leaders to quickly grasp performance issues, identify service gaps
 • Fine-tuned Qwen2.5-VL via LoRA for field-targeted extraction, achieving 87% accuracy on 10K handwritten
 forms in 2 months, enabling HIPAA-compliant GenAI deployment across 284 residential stakeholders.
 • Designed regex-based PHI masking engine with L-diversity validation, securing 60K+ patient records across 8
@@ -34,6 +43,14 @@ gaps, driving prioritized interventions and optimizing resource allocation acros
 • Collaborated with Property, Residential, Finance, and Clinic departments to define KPIs, document mappings,
 and standardize reporting templates, elevating dashboard usability, adoption, and governance department-wide.
 Data Science Analyst | Accenture India Pvt Ltd — Bangalore, India May 2021 – Jan 2023
+• Built Power BI and Qlik dashboards with reusable DAX measures, automated refresh pipelines, and QA checks,
+giving business teams on demand visibility into customer trends and operational KPIs.
+• Applied Python (pandas, scikit-learn) to run uplift modeling and A/B test evaluations for promotional
+campaigns, identifying high-response segments and increasing targeted conversion impact.
+• Collaborated with Data Analysts and Data Scientists of marketing, product, and analytics teams to define KPI
+logic, validate data sources, and translate business questions into reusable analytical frameworks.
+• Implemented GDPR-aligned data governance using hashing, tokenization, and secure access rules, ensuring
+customer-level reporting met privacy expectations for audits and partner reviews.
 • Built demand forecasting models using Prophet, ARIMA, and XGBoost for BP's 2,800+ EU stores, achieving
 91% accuracy (MAPE 8.7%) on 15K SKUs, cutting stockouts by 18% and perishable waste by 23%.
 • Architected GCP pipelines processing 5TB daily POS data with PySpark on Dataproc and BigQuery
@@ -43,6 +60,12 @@ partitioning/clustering, delivering <2s query performance and 35% cost reduction
 • Deployed 37 Power BI dashboards with DAX for forecast accuracy, inventory KPIs, and promotional ROI across
 country→store→product hierarchies, training 450+ stakeholders and boosting adoption by 40%.
 Business Analyst | SRIT Pvt Ltd — Bangalore, India Jan 2020 – Apr 2021
+• Gathered and clarified clinical workflow requirements through stakeholder interviews and SQL data reviews,
+producing detailed FRDs/BRDs and Visio process maps that reduced integration defects across releases.
+• Developed operational dashboards with Power BI and Apache Superset, defining KPIs, shaping data logic, and
+enabling leadership to track patient-care metrics, service usage patterns, and administrative throughput.
+• Led UAT cycles by writing test scenarios, validating business rules, logging defects, and coordinating fixes with
+developers, ensuring each release met functional expectations before production sign-off.
 • Translated healthcare requirements into FRDs and BRDs through stakeholder interviews, analyzing relational
 data in PostgreSQL to improve project clarity and reduce integration errors.
 • Led Agile sprints and stand-ups for a 13-member team, using MS Project for budget tracking, Visio for process
