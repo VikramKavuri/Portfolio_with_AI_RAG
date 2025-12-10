@@ -224,7 +224,7 @@ Write professionally with enthusiasm. Use specific metrics and achievements from
           }
           // Trigger the filter update
           onAnalysisComplete(topSkillNames);
-        }, 2000000);
+        }, 15000);
       }
     } catch (err) {
       console.error('Analysis error:', err);
