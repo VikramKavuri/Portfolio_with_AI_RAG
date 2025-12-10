@@ -224,7 +224,7 @@ Write professionally with enthusiasm. Use specific metrics and achievements from
           }
           // Trigger the filter update
           onAnalysisComplete(topSkillNames);
-        }, 1000);
+        }, 2000000);
       }
     } catch (err) {
       console.error('Analysis error:', err);
@@ -408,7 +408,7 @@ REQUIREMENTS:
               
               <div className="mt-6 text-center">
                 <p className="text-sm text-gray-500">
-                  👇 Scroll down to see relevant projects filtered by these skills
+                  👇 Scroll down to see relevant projects filtered by these skills (Auto scroll activates in 20 Seconds)
                 </p>
               </div>
             </div>
