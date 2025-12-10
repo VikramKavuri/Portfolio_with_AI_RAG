@@ -99,7 +99,7 @@ Certifications
       },
       body: JSON.stringify({
         // OPTIMIZATION: Better free model with JSON support
-        model: 'meta-llama/llama-3.1-8b-instruct:free',
+        model: 'meta-llama/llama-3.3-70b-instruct:free',
         messages: [{
           role: 'system',
           content: 'You are a professional career advisor analyzing job fit. Respond ONLY with valid JSON, no extra text.'
