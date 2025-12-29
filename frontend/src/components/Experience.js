@@ -9,17 +9,18 @@ const Experience = () => {
     {
       id: 1,
       title: "Data Analytics Engineer",
-      company: "The Arc Erie County New York",
+      company: "The Arc Erie County, New York",
       location: "Buffalo, New York, US",
       period: "Jan 2025 – Present",
       type: "Current Role",
       highlights: [
-        "Automated end-to-end data workflows reducing manual processes by 50%",
-        "Integrated complex data from multiple enterprise APIs (NetSuite, Dayforce, PrecisionCare)",
-        "Designed interactive dashboards using Tableau and SSRS for strategic decision-making",
-        "Optimized database performance through sophisticated data modeling and query tuning"
+        "Integrated PrecisionCare (EHR), NetSuite (ERP), and Dayforce (HRIS) via REST APIs (OAuth 2.0), creating a single, trusted dataset for clinical, finance, and workforce reporting.",
+        "Fine-tuned Qwen2.5-VL model using LoRA for automated form extraction, achieving 87% accuracy on 10K handwritten healthcare documents while maintaining HIPAA compliance.",
+        "Architected Snowflake cloud data warehouse with dimensional modeling, accelerating queries by 85% and enabling real-time insights for 50+ concurrent users.",
+        "Translated Medicare billing flow into Tableau dashboards (denials, AR aging, submission SLAs); reduced backlog 40%, cut submission time 18→11 days, and dropped ad-hoc asks 70%.",
+        "Implemented HIPAA & FERPA compliant data governance with role-based security, passing audits with zero findings while supporting daily operations."
       ],
-      technologies: ["Python", "PowerShell", "SSIS", "SQL", "Tableau", "SSRS"],
+      technologies: ["Python", "Snowflake", "Apache Airflow", "SQL", "Tableau", "SSRS"],
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71"
     },
     {
@@ -30,12 +31,14 @@ const Experience = () => {
       period: "May 2021 – Jan 2023",
       type: "1 year 9 months",
       highlights: [
-        "Engineered scalable data infrastructures processing 5TB of daily data",
-        "Developed automated CI/CD workflows achieving 50% reduction in deployment time",
-        "Constructed 37 interactive dashboards boosting report reliability by 20%",
-        "Established data governance policies reducing unauthorized access by 95%"
+        "Supported a Fortune 500 retail client’s shift to a cloud-native lakehouse, bridging raw data pipelines to decision-ready analytics for supply-chain leaders.",
+        "Architected PySpark data pipelines on AWS (Redshift, S3) processing millions of daily transactional records, improving query performance by 25% through optimized stored procedures.",
+        "Applied the Pareto (80/20) analysis on Snowflake workloads; introduced materialized views + clustering keys to cut the Morning Executive Report runtime from 4 hours to 45 minutes.",
+        "Built XGBoost time-series forecasting model achieving <12% MAPE, solving chronic stockout issues by analyzing seasonality, price elasticity, and local events.",
+        "Delivered insights to non-technical stakeholders through Power BI dashboards; built 37 dashboards/reports (Power BI, Qlik Sense, Excel) and boosted report reliability by 20% via automated validation.",
+        "Engineered automated CI/CD pipelines using Azure DevOps, reducing deployment time by 50% and enabling near real-time inventory response for supply chain teams."
       ],
-      technologies: ["PySpark", "AWS Redshift", "AWS S3", "Snowflake", "Power BI", "Azure DevOps"],
+      technologies: ["PySpark", "AWS Redshift", "AWS S3", "Snowflake", "Power BI", "Azure DevOps", "Qlik Sense"],
       image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f"
     },
     {
@@ -46,12 +49,14 @@ const Experience = () => {
       period: "Jan 2020 – Apr 2021",
       type: "1 year 4 months",
       highlights: [
-        "Analyzed over 1 million patient records using advanced analytical techniques",
-        "Improved project clarity by 40% through comprehensive requirement documentation",
-        "Led Agile sprints for 13-member team driving 20% increase in project efficiency",
-        "Applied K-means clustering and logistic regression for patient risk identification"
+        "Structured problem solving (MECE) and bottleneck diagnosis (Theory of Constraints) to isolate the few constraints driving most delays; prioritized the highest-leverage fixes and contributed to an 8% improvement in hospital performance metrics.",
+        "Built and maintained Power BI and Apache Superset dashboards for daily operational visibility (throughput, bottlenecks, and performance trends), turning complex hospital activity into simple, decision-ready views for non-technical stakeholders.",
+        "Produced end-to-end process maps and workflow documentation (Visio), aligning stakeholders on “current vs. future state” and ensuring build teams had an unambiguous blueprint tied to clinical intent.",
+        "Led 13-member Agile team using JIRA and MS Project, delivering healthcare solutions with servant-leadership approach while maintaining budget discipline and fiscal responsibility.",
+        "Analyzed 1M+ patient records using SQL and K-means clustering to identify high-risk cohorts, unlocking 8% improvement in hospital performance metrics."
+      
       ],
-      technologies: ["SQL", "Power BI", "Apache Superset", "JIRA", "MS Project"],
+      technologies: ["SQL", "Power BI", "Apache Superset", "Visio", "JIRA", "MS Project"],
       image: "https://images.pexels.com/photos/669619/pexels-photo-669619.jpeg"
     }
   ];
