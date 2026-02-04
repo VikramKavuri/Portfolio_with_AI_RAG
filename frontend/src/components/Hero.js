@@ -12,9 +12,9 @@ const Hero = ({ onSkillsIdentified }) => {
   // Rotating titles for animated text - RECRUITER MAGNETS
   const titles = useMemo(
     () => [
-      "Finding ROI in the noise."
-"Reliable pipelines. Clear metrics. Real impact."
-"Making leaders act faster with evidence."
+      "Finding ROI in the noise.",
+"Reliable pipelines. Clear metrics. Real impact.",
+"Making leaders act faster with evidence.",
 "Building systems that don’t break at scale."
     ],
     []
