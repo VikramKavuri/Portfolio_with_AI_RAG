@@ -202,26 +202,26 @@ const Hero = ({ onSkillsIdentified }) => {
           </motion.h2>
         </motion.div>
 
-        {/* FIXED: Animated Rotating Tagline - RECRUITER MAGNET */}
+        {/* FIXED: Animated Rotating Tagline - Increased Size & Better Colors */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isLoaded ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
           className="mb-8 sm:mb-12"
         >
-          {/* FIXED: Added proper wrapper with width and positioning */}
-          <div className="w-full max-w-5xl mx-auto">
+          {/* FIXED: Increased height and better spacing */}
+          <div className="w-full max-w-6xl mx-auto px-4">
             <div 
               className="relative flex items-center justify-center overflow-hidden"
               style={{ 
-                minHeight: '120px', // Fixed height to prevent layout shift
-                height: '120px'
+                minHeight: '160px', // INCREASED from 120px
+                height: '160px'     // INCREASED from 120px
               }}
             >
               {titles.map((title, index) => (
                 <motion.div
                   key={index}
-                  className="absolute w-full flex items-center justify-center px-4"
+                  className="absolute w-full flex items-center justify-center px-6 sm:px-8"
                   initial={{ opacity: 0, y: 100 }}
                   animate={
                     titleNumber === index
@@ -241,9 +241,34 @@ const Hero = ({ onSkillsIdentified }) => {
                     duration: 0.8 
                   }}
                 >
-                  <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-center leading-relaxed">
+                  {/* OPTION 1: Rich Blue-to-Purple Gradient (Elegant & Professional) */}
+                  <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-700 via-indigo-600 to-purple-700 bg-clip-text text-transparent text-center leading-relaxed px-2">
                     {title}
                   </span>
+                  
+                  {/* OPTION 2: Gold Gradient (Luxury & Premium) - Uncomment to use
+                  <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-amber-600 via-yellow-500 to-orange-600 bg-clip-text text-transparent text-center leading-relaxed px-2">
+                    {title}
+                  </span>
+                  */}
+                  
+                  {/* OPTION 3: Teal-to-Cyan (Modern & Tech) - Uncomment to use
+                  <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-teal-600 via-cyan-600 to-blue-600 bg-clip-text text-transparent text-center leading-relaxed px-2">
+                    {title}
+                  </span>
+                  */}
+                  
+                  {/* OPTION 4: Dark Slate with Accent (Ultra Professional) - Uncomment to use
+                  <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-slate-700 via-blue-600 to-slate-800 bg-clip-text text-transparent text-center leading-relaxed px-2">
+                    {title}
+                  </span>
+                  */}
+                  
+                  {/* OPTION 5: Vibrant Multi-color (Bold & Eye-catching) - Uncomment to use
+                  <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent text-center leading-relaxed px-2">
+                    {title}
+                  </span>
+                  */}
                 </motion.div>
               ))}
             </div>
