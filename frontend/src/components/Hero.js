@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
 import { ChevronDown, Database, BarChart3, Cloud, Cpu, Zap, TrendingUp } from 'lucide-react';
 import JobMatchAnalyzer from './JobMatchAnalyzer';
@@ -6,7 +6,20 @@ import JobMatchAnalyzer from './JobMatchAnalyzer';
 const Hero = ({ onSkillsIdentified }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [titleNumber, setTitleNumber] = useState(0);
   const containerRef = useRef(null);
+
+  // Rotating titles for animated text - RECRUITER MAGNETS
+  const titles = useMemo(
+    () => [
+      "turning chaos into clarity",
+      "making executives say wow",
+      "shipping results, not reports",
+      "solving million-dollar problems",
+      "building what others can't"
+    ],
+    []
+  );
 
   // Scroll-based animations
   const { scrollY } = useScroll();
@@ -19,6 +32,18 @@ const Hero = ({ onSkillsIdentified }) => {
   useEffect(() => {
     setIsLoaded(true);
   }, []);
+
+  // Rotating title animation - slower for readability
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (titleNumber === titles.length - 1) {
+        setTitleNumber(0);
+      } else {
+        setTitleNumber(titleNumber + 1);
+      }
+    }, 3000); // 3 seconds per phrase for better readability
+    return () => clearTimeout(timeoutId);
+  }, [titleNumber, titles]);
 
   // Mouse parallax effect
   useEffect(() => {
@@ -151,7 +176,7 @@ const Hero = ({ onSkillsIdentified }) => {
         className="relative z-10 text-center px-4 sm:px-6 w-full max-w-sm sm:max-w-2xl md:max-w-4xl lg:max-w-5xl mx-auto"
       >
         
-        {/* Animated Name */}
+        {/* Animated Name & Static Title */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isLoaded ? { opacity: 1, y: 0 } : {}}
@@ -166,52 +191,87 @@ const Hero = ({ onSkillsIdentified }) => {
             Thrivikrama Rao
           </motion.h1>
           
-          <motion.div
+          {/* Static Title */}
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={isLoaded ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            className="text-3xl sm:text-4xl md:text-5xl font-light text-gray-900 mb-6"
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light text-gray-900 mb-6">
-              Data Analytics Engineer
-            </h2>
-          </motion.div>
+            Data Analytics Engineer
+          </motion.h2>
         </motion.div>
 
-        {/* Animated Tagline with Metrics */}
+        {/* Animated Rotating Tagline - RECRUITER MAGNET */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isLoaded ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
           className="mb-8 sm:mb-12"
         >
-          <p className="text-lg sm:text-xl text-gray-600 font-light max-w-3xl mx-auto leading-relaxed">
-            Built pipelines processing{' '}
+          <div className="text-xl sm:text-2xl md:text-3xl text-gray-700 font-normal max-w-4xl mx-auto leading-relaxed min-h-[80px] sm:min-h-[100px] flex items-center justify-center">
+            <span className="relative inline-flex overflow-hidden h-[80px] sm:h-[100px] items-center">
+              {titles.map((title, index) => (
+                <motion.span
+                  key={index}
+                  className="absolute font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 px-4 text-center w-full"
+                  initial={{ opacity: 0, y: 80 }}
+                  transition={{ type: "spring", stiffness: 50, damping: 20 }}
+                  animate={
+                    titleNumber === index
+                      ? {
+                          y: 0,
+                          opacity: 1,
+                        }
+                      : {
+                          y: titleNumber > index ? -80 : 80,
+                          opacity: 0,
+                        }
+                  }
+                >
+                  {title}
+                </motion.span>
+              ))}
+            </span>
+          </div>
+        </motion.div>
+
+        {/* Concrete Proof Points */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isLoaded ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+          className="mb-8 sm:mb-12"
+        >
+          <p className="text-base sm:text-lg text-gray-600 font-light max-w-3xl mx-auto leading-relaxed">
+            Processed{' '}
             <motion.span
               initial={{ opacity: 0, scale: 0.5 }}
               animate={isLoaded ? { opacity: 1, scale: 1 } : {}}
-              transition={{ delay: 1, duration: 0.5, type: "spring" }}
+              transition={{ delay: 1.2, duration: 0.5, type: "spring" }}
               className="inline-block font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-600"
             >
-              5TB daily data
+              5TB daily
             </motion.span>
-            {' • Reduced query latency by '}
+            {' • Accelerated queries by '}
             <motion.span
               initial={{ opacity: 0, scale: 0.5 }}
               animate={isLoaded ? { opacity: 1, scale: 1 } : {}}
-              transition={{ delay: 1.3, duration: 0.5, type: "spring" }}
+              transition={{ delay: 1.5, duration: 0.5, type: "spring" }}
               className="inline-block font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600"
             >
               85%
             </motion.span>
-            {' • Achieved '}
+            {' • Delivered '}
             <motion.span
               initial={{ opacity: 0, scale: 0.5 }}
               animate={isLoaded ? { opacity: 1, scale: 1 } : {}}
-              transition={{ delay: 1.6, duration: 0.5, type: "spring" }}
+              transition={{ delay: 1.8, duration: 0.5, type: "spring" }}
               className="inline-block font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-600"
             >
-              87% ML accuracy
+              87% accuracy
             </motion.span>
+            {' in production ML models'}
           </p>
         </motion.div>
 
@@ -219,7 +279,7 @@ const Hero = ({ onSkillsIdentified }) => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={isLoaded ? { opacity: 1 } : {}}
-          transition={{ delay: 0.6, duration: 0.8 }}
+          transition={{ delay: 0.8, duration: 0.8 }}
           className="grid grid-cols-2 sm:flex sm:justify-center gap-4 sm:gap-6 md:gap-8 mb-12 sm:mb-16 max-w-sm sm:max-w-none mx-auto"
         >
           {techStack.map((item, index) => (
@@ -229,7 +289,7 @@ const Hero = ({ onSkillsIdentified }) => {
               animate={isLoaded ? { opacity: 1, y: 0, scale: 1 } : {}}
               transition={{ 
                 duration: 0.5, 
-                delay: 0.8 + item.delay,
+                delay: 1 + item.delay,
                 type: "spring",
                 stiffness: 200
               }}
@@ -262,7 +322,7 @@ const Hero = ({ onSkillsIdentified }) => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isLoaded ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 1, ease: "easeOut" }}
+          transition={{ duration: 0.8, delay: 1.2, ease: "easeOut" }}
           className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-12 sm:mb-16 px-4 sm:px-0"
         >
           <MagneticButton 
@@ -285,7 +345,7 @@ const Hero = ({ onSkillsIdentified }) => {
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isLoaded ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 1.2, ease: "easeOut" }}
+          transition={{ duration: 0.8, delay: 1.4, ease: "easeOut" }}
           className="grid grid-cols-3 gap-3 sm:gap-4 max-w-2xl mx-auto mb-12"
         >
           {[
@@ -311,7 +371,7 @@ const Hero = ({ onSkillsIdentified }) => {
       <motion.div
         initial={{ opacity: 0, y: 100 }}
         animate={isLoaded ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.8, delay: 2, ease: "easeOut" }}
+        transition={{ duration: 0.8, delay: 2.2, ease: "easeOut" }}
         className="relative z-10 w-full px-4 sm:px-6 mb-12"
       >
         <JobMatchAnalyzer onAnalysisComplete={onSkillsIdentified} />
@@ -321,7 +381,7 @@ const Hero = ({ onSkillsIdentified }) => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={isLoaded ? { opacity: 1 } : {}}
-        transition={{ delay: 1.5, duration: 0.8 }}
+        transition={{ delay: 1.8, duration: 0.8 }}
         style={{ opacity }}
         className="relative z-10 mt-8"
       >
