@@ -173,7 +173,7 @@ const Hero = ({ onSkillsIdentified }) => {
       {/* Main Content */}
       <motion.div 
         style={{ opacity }}
-        className="relative z-10 text-center px-4 sm:px-6 w-full max-w-sm sm:max-w-2xl md:max-w-4xl lg:max-w-5xl mx-auto"
+        className="relative z-10 text-center px-4 sm:px-6 w-full max-w-sm sm:max-w-2xl md:max-w-4xl lg:max-w-6xl mx-auto"
       >
         
         {/* Animated Name & Static Title */}
@@ -202,21 +202,27 @@ const Hero = ({ onSkillsIdentified }) => {
           </motion.h2>
         </motion.div>
 
-        {/* Animated Rotating Tagline - RECRUITER MAGNET */}
+        {/* FIXED: Animated Rotating Tagline - RECRUITER MAGNET */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isLoaded ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
           className="mb-8 sm:mb-12"
         >
-          <div className="text-xl sm:text-2xl md:text-3xl text-gray-700 font-normal max-w-4xl mx-auto leading-relaxed min-h-[80px] sm:min-h-[100px] flex items-center justify-center">
-            <span className="relative inline-flex overflow-hidden h-[80px] sm:h-[100px] items-center">
+          {/* FIXED: Added proper wrapper with width and positioning */}
+          <div className="w-full max-w-5xl mx-auto">
+            <div 
+              className="relative flex items-center justify-center overflow-hidden"
+              style={{ 
+                minHeight: '120px', // Fixed height to prevent layout shift
+                height: '120px'
+              }}
+            >
               {titles.map((title, index) => (
-                <motion.span
+                <motion.div
                   key={index}
-                  className="absolute font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 px-4 text-center w-full"
-                  initial={{ opacity: 0, y: 80 }}
-                  transition={{ type: "spring", stiffness: 50, damping: 20 }}
+                  className="absolute w-full flex items-center justify-center px-4"
+                  initial={{ opacity: 0, y: 100 }}
                   animate={
                     titleNumber === index
                       ? {
@@ -224,15 +230,23 @@ const Hero = ({ onSkillsIdentified }) => {
                           opacity: 1,
                         }
                       : {
-                          y: titleNumber > index ? -80 : 80,
+                          y: titleNumber > index ? -100 : 100,
                           opacity: 0,
                         }
                   }
+                  transition={{ 
+                    type: "spring", 
+                    stiffness: 50, 
+                    damping: 20,
+                    duration: 0.8 
+                  }}
                 >
-                  {title}
-                </motion.span>
+                  <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-center leading-relaxed">
+                    {title}
+                  </span>
+                </motion.div>
               ))}
-            </span>
+            </div>
           </div>
         </motion.div>
 
