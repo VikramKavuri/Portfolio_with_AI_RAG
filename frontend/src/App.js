@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import {
   ChevronDown, ArrowRight, Database, BarChart3, Globe, Code2,
@@ -15,239 +15,93 @@ import emailjs from '@emailjs/browser';
 import JobMatchAnalyzer from './components/JobMatchAnalyzer';
 import './App.css';
 
-// Safe THREE import
-let THREE;
-try {
-  THREE = require('three');
-} catch (e) {
-  console.warn('three.js not available');
-  THREE = { 
-    MathUtils: { lerp: (a, b, t) => a + (b - a) * t },
-    AdditiveBlending: 2,
-    Color: class { setHSL() { return this; } },
-    Vector3: class { constructor(x,y,z) { this.x=x; this.y=y; this.z=z; } },
-    BufferGeometry: class { setFromPoints() { return this; } }
-  };
-}
-
-// Dynamic imports for 3D - prevents crash if packages missing
-let Canvas, useFrame, Points, PointMaterial, Float;
-try {
-  const fiber = require('@react-three/fiber');
-  const drei = require('@react-three/drei');
-  Canvas = fiber.Canvas;
-  useFrame = fiber.useFrame;
-  Points = drei.Points;
-  PointMaterial = drei.PointMaterial;
-  Float = drei.Float;
-} catch (e) {
-  console.warn('Three.js packages not available, using CSS fallback');
-  Canvas = null;
-}
-
 // ============================================================
-// 3D ERROR BOUNDARY - Prevents black screen if 3D crashes
+// ANIMATED BACKGROUND - Pure CSS/SVG, zero dependencies
 // ============================================================
-class Canvas3DErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false };
-  }
-  static getDerivedStateFromError() {
-    return { hasError: true };
-  }
-  componentDidCatch(error, info) {
-    console.warn('3D Scene failed to load, falling back to CSS background:', error);
-  }
-  render() {
-    if (this.state.hasError) {
-      return this.props.fallback || null;
+const AnimatedDataBackground = () => {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let animationId;
+    let particles = [];
+
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Create particles
+    for (let i = 0; i < 120; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        size: Math.random() * 2 + 1,
+        opacity: Math.random() * 0.5 + 0.1,
+        hue: 200 + Math.random() * 40, // blue-cyan range
+      });
     }
-    return this.props.children;
-  }
-}
 
-// ============================================================
-// CSS-ONLY ANIMATED BACKGROUND FALLBACK
-// ============================================================
-const CSSParticleBackground = () => {
-  return (
-    <div className="absolute inset-0 overflow-hidden">
-      {/* Grid pattern */}
-      <div className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: 'linear-gradient(rgba(59,130,246,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.5) 1px, transparent 1px)',
-          backgroundSize: '60px 60px'
-        }}
-      />
-      {/* Floating orbs */}
-      {[...Array(6)].map((_, i) => (
-        <div
-          key={i}
-          className="absolute rounded-full animate-pulse"
-          style={{
-            width: `${80 + i * 40}px`,
-            height: `${80 + i * 40}px`,
-            left: `${10 + i * 15}%`,
-            top: `${15 + (i % 3) * 25}%`,
-            background: `radial-gradient(circle, rgba(59,130,246,${0.08 + i * 0.02}) 0%, transparent 70%)`,
-            animationDelay: `${i * 0.5}s`,
-            animationDuration: `${3 + i}s`,
-          }}
-        />
-      ))}
-      {/* Moving gradient streaks */}
-      <div className="absolute inset-0">
-        {[...Array(4)].map((_, i) => (
-          <div
-            key={`streak-${i}`}
-            className="absolute h-px opacity-20"
-            style={{
-              top: `${20 + i * 20}%`,
-              left: 0,
-              right: 0,
-              background: 'linear-gradient(90deg, transparent, rgba(59,130,246,0.4), transparent)',
-              animation: `streakMove ${4 + i}s linear infinite`,
-              animationDelay: `${i * 1.2}s`,
-            }}
-          />
-        ))}
-      </div>
-      <style>{`
-        @keyframes streakMove {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw connections
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 150) {
+            ctx.beginPath();
+            ctx.strokeStyle = `hsla(210, 80%, 60%, ${0.08 * (1 - dist / 150)})`;
+            ctx.lineWidth = 0.5;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
         }
-      `}</style>
-    </div>
-  );
-};
+      }
 
-// ============================================================
-// 3D SCENE COMPONENTS - Data Pipeline Visualization
-// ============================================================
+      // Draw particles
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
 
-// Morphing particle system that goes from chaos → organized pipeline
-const DataParticleField = ({ scrollProgress = 0 }) => {
-  const pointsRef = useRef();
-  const count = 1500;
+        // Wrap around
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.y > canvas.height) p.y = 0;
 
-  const { chaosPositions, orderedPositions, colors } = useMemo(() => {
-    const chaos = new Float32Array(count * 3);
-    const ordered = new Float32Array(count * 3);
-    const cols = new Float32Array(count * 3);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${p.hue}, 80%, 65%, ${p.opacity})`;
+        ctx.fill();
+      });
 
-    for (let i = 0; i < count; i++) {
-      chaos[i * 3] = (Math.random() - 0.5) * 8;
-      chaos[i * 3 + 1] = (Math.random() - 0.5) * 8;
-      chaos[i * 3 + 2] = (Math.random() - 0.5) * 4;
+      animationId = requestAnimationFrame(draw);
+    };
 
-      const t = i / count;
-      const angle = t * Math.PI * 6;
-      const radius = 0.3 + Math.sin(t * Math.PI * 2) * 0.15;
-      ordered[i * 3] = t * 6 - 3;
-      ordered[i * 3 + 1] = Math.sin(angle) * radius;
-      ordered[i * 3 + 2] = Math.cos(angle) * radius;
+    draw();
 
-      cols[i * 3] = 0.1 + t * 0.1;
-      cols[i * 3 + 1] = 0.4 + t * 0.4;
-      cols[i * 3 + 2] = 0.9 - t * 0.3;
-    }
-    return { chaosPositions: chaos, orderedPositions: ordered, colors: cols };
+    return () => {
+      cancelAnimationFrame(animationId);
+      window.removeEventListener('resize', resize);
+    };
   }, []);
 
-  const currentPositions = useMemo(() => new Float32Array(count * 3), []);
-
-  useFrame((state) => {
-    if (!pointsRef.current) return;
-    const progress = Math.min(1, Math.max(0, scrollProgress));
-    const time = state.clock.elapsedTime;
-
-    for (let i = 0; i < count; i++) {
-      const i3 = i * 3;
-      currentPositions[i3] = THREE.MathUtils.lerp(chaosPositions[i3], orderedPositions[i3], progress) + Math.sin(time + i * 0.01) * (1 - progress) * 0.1;
-      currentPositions[i3 + 1] = THREE.MathUtils.lerp(chaosPositions[i3 + 1], orderedPositions[i3 + 1], progress) + Math.cos(time + i * 0.01) * (1 - progress) * 0.1;
-      currentPositions[i3 + 2] = THREE.MathUtils.lerp(chaosPositions[i3 + 2], orderedPositions[i3 + 2], progress);
-    }
-
-    pointsRef.current.geometry.attributes.position.array = currentPositions;
-    pointsRef.current.geometry.attributes.position.needsUpdate = true;
-    pointsRef.current.rotation.y = time * 0.05;
-  });
-
   return (
-    <Points ref={pointsRef} positions={chaosPositions} colors={colors} stride={3}>
-      <PointMaterial
-        transparent
-        vertexColors
-        size={0.035}
-        sizeAttenuation={true}
-        depthWrite={false}
-        opacity={0.8}
-        blending={THREE.AdditiveBlending}
-      />
-    </Points>
-  );
-};
-
-// Floating data nodes
-const FloatingNodes = () => {
-  const groupRef = useRef();
-  const nodes = useMemo(() => {
-    return Array.from({ length: 8 }, (_, i) => ({
-      pos: [
-        (Math.random() - 0.5) * 5,
-        (Math.random() - 0.5) * 3,
-        (Math.random() - 0.5) * 2
-      ],
-      s: 0.05 + Math.random() * 0.08,
-      speed: 0.5 + Math.random() * 1.5,
-      col: new THREE.Color().setHSL(0.55 + Math.random() * 0.15, 0.8, 0.6)
-    }));
-  }, []);
-
-  useFrame((state) => {
-    if (!groupRef.current) return;
-    const time = state.clock.elapsedTime;
-    groupRef.current.children.forEach((child, i) => {
-      if (!nodes[i]) return;
-      child.position.y += Math.sin(time * nodes[i].speed + i) * 0.002;
-      child.scale.setScalar(nodes[i].s * (1 + Math.sin(time * 2 + i) * 0.2));
-    });
-  });
-
-  return (
-    <group ref={groupRef}>
-      {nodes.map((node, i) => (
-        <mesh key={i} position={node.pos}>
-          <icosahedronGeometry args={[node.s, 1]} />
-          <meshBasicMaterial color={node.col} transparent opacity={0.6} wireframe />
-        </mesh>
-      ))}
-    </group>
-  );
-};
-
-// Main 3D Scene
-const Scene3D = ({ scrollProgress }) => {
-  if (!Canvas) return <CSSParticleBackground />;
-  
-  return (
-    <Canvas
-      camera={{ position: [0, 0, 4], fov: 60 }}
-      style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
-      gl={{ antialias: true, alpha: true }}
-      onCreated={({ gl }) => {
-        gl.setClearColor(0x000000, 0);
-      }}
-    >
-      <ambientLight intensity={0.5} />
-      <pointLight position={[10, 10, 10]} intensity={0.5} />
-      <Float speed={1} rotationIntensity={0.3} floatIntensity={0.5}>
-        <DataParticleField scrollProgress={scrollProgress} />
-        <FloatingNodes />
-      </Float>
-    </Canvas>
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 w-full h-full"
+      style={{ opacity: 0.6 }}
+    />
   );
 };
 
@@ -426,11 +280,9 @@ const ChapterIntro = ({ onComplete }) => {
 const HeroChapter = ({ onSkillsIdentified }) => {
   return (
     <section id="hero" className="relative min-h-[120vh] flex flex-col justify-center overflow-hidden">
-      {/* 3D Background with fallback */}
+      {/* Animated particle background */}
       <div className="absolute inset-0 z-0">
-        <Canvas3DErrorBoundary fallback={<CSSParticleBackground />}>
-          <Scene3D scrollProgress={0} />
-        </Canvas3DErrorBoundary>
+        <AnimatedDataBackground />
       </div>
 
       {/* Gradient overlays */}
