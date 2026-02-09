@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { motion, AnimatePresence, useScroll, useSpring, useInView } from 'framer-motion';
-import * as THREE from 'three';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
 import {
   ChevronDown, ArrowRight, Database, BarChart3, Globe, Code2,
   Building2, Calendar, MapPin, TrendingUp, Users, Award,
@@ -15,6 +14,21 @@ import { Toaster } from './components/ui/toaster';
 import emailjs from '@emailjs/browser';
 import JobMatchAnalyzer from './components/JobMatchAnalyzer';
 import './App.css';
+
+// Safe THREE import
+let THREE;
+try {
+  THREE = require('three');
+} catch (e) {
+  console.warn('three.js not available');
+  THREE = { 
+    MathUtils: { lerp: (a, b, t) => a + (b - a) * t },
+    AdditiveBlending: 2,
+    Color: class { setHSL() { return this; } },
+    Vector3: class { constructor(x,y,z) { this.x=x; this.y=y; this.z=z; } },
+    BufferGeometry: class { setFromPoints() { return this; } }
+  };
+}
 
 // Dynamic imports for 3D - prevents crash if packages missing
 let Canvas, useFrame, Points, PointMaterial, Float;
@@ -409,13 +423,13 @@ const ChapterIntro = ({ onComplete }) => {
 // ============================================================
 // CHAPTER 2: HERO - "The Problem & Solution"
 // ============================================================
-const HeroChapter = ({ onSkillsIdentified, scrollProgress }) => {
+const HeroChapter = ({ onSkillsIdentified }) => {
   return (
     <section id="hero" className="relative min-h-[120vh] flex flex-col justify-center overflow-hidden">
       {/* 3D Background with fallback */}
       <div className="absolute inset-0 z-0">
         <Canvas3DErrorBoundary fallback={<CSSParticleBackground />}>
-          <Scene3D scrollProgress={scrollProgress} />
+          <Scene3D scrollProgress={0} />
         </Canvas3DErrorBoundary>
       </div>
 
@@ -1552,81 +1566,73 @@ const StoryFooter = () => {
 function App() {
   const [introComplete, setIntroComplete] = useState(false);
   const [identifiedSkills, setIdentifiedSkills] = useState([]);
-  const { scrollYProgress } = useScroll();
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
-  const [scrollProgress3D, setScrollProgress3D] = useState(0);
 
+  // Safety: force intro complete after 5s no matter what
   useEffect(() => {
-    return smoothProgress.on('change', v => setScrollProgress3D(v));
-  }, [smoothProgress]);
+    const safety = setTimeout(() => setIntroComplete(true), 5000);
+    return () => clearTimeout(safety);
+  }, []);
 
   return (
-    <div className="bg-[#0a0a0f] min-h-screen">
+    <div className="bg-[#0a0a0f] min-h-screen text-white">
       {/* Google Fonts */}
       <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 
-      {/* Progress bar */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-500 via-cyan-500 to-emerald-500 z-[60] origin-left"
-        style={{ scaleX: scrollYProgress }}
-      />
-
-      {/* Cinematic intro */}
+      {/* Cinematic intro overlay */}
       <AnimatePresence>
         {!introComplete && <ChapterIntro onComplete={() => setIntroComplete(true)} />}
       </AnimatePresence>
 
-      {introComplete && (
-        <>
-          <StoryHeader />
+      {/* ALWAYS render content - just hide behind intro initially */}
+      <div style={{ opacity: introComplete ? 1 : 0, transition: 'opacity 0.5s ease' }}>
+        <StoryHeader />
 
-          <HeroChapter onSkillsIdentified={setIdentifiedSkills} scrollProgress={scrollProgress3D} />
+        <HeroChapter onSkillsIdentified={setIdentifiedSkills} />
 
-          <StoryTransition
-            id="story-transition-1"
-            number="01"
-            title="The Arsenal"
-            subtitle="Technologies and tools that power my data engineering workflow"
-          />
-          <SkillsChapter />
+        <StoryTransition
+          id="story-transition-1"
+          number="01"
+          title="The Arsenal"
+          subtitle="Technologies and tools that power my data engineering workflow"
+        />
+        <SkillsChapter />
 
-          <StoryTransition
-            id="story-transition-2"
-            number="02"
-            title="The Journey"
-            subtitle="From analyzing patient records to architecting enterprise data platforms"
-          />
-          <ExperienceChapter />
+        <StoryTransition
+          id="story-transition-2"
+          number="02"
+          title="The Journey"
+          subtitle="From analyzing patient records to architecting enterprise data platforms"
+        />
+        <ExperienceChapter />
 
-          <StoryTransition
-            id="story-transition-3"
-            number="03"
-            title="The Proof"
-            subtitle="Projects that demonstrate real impact with real code"
-          />
-          <ProjectsChapter autoSelectedSkills={identifiedSkills} />
+        <StoryTransition
+          id="story-transition-3"
+          number="03"
+          title="The Proof"
+          subtitle="Projects that demonstrate real impact with real code"
+        />
+        <ProjectsChapter autoSelectedSkills={identifiedSkills} />
 
-          <StoryTransition
-            id="story-transition-4"
-            number="04"
-            title="The Validation"
-            subtitle="Industry recognition and peer endorsements"
-          />
-          <CertificationsChapter />
-          <TestimonialsChapter />
+        <StoryTransition
+          id="story-transition-4"
+          number="04"
+          title="The Validation"
+          subtitle="Industry recognition and peer endorsements"
+        />
+        <CertificationsChapter />
+        <TestimonialsChapter />
 
-          <StoryTransition
-            id="story-transition-5"
-            number="05"
-            title="Let's Connect"
-            subtitle="Transform your data challenges into strategic advantages"
-          />
-          <ContactChapter />
+        <StoryTransition
+          id="story-transition-5"
+          number="05"
+          title="Let's Connect"
+          subtitle="Transform your data challenges into strategic advantages"
+        />
+        <ContactChapter />
 
-          <StoryFooter />
-          <Toaster />
-        </>
-      )}
+        <StoryFooter />
+        <Toaster />
+      </div>
     </div>
   );
 }
