@@ -1,12 +1,13 @@
 import React from 'react';
 import Hero3D from './components/Hero3D';
 import ScrollPipeline from './components/ScrollPipeline';
-import { motion } from 'framer-motion';
-import './App.css'; // Ensure this imports your updated Tailwind styles
+import Skills3D from './components/Skills3D';
+import ProjectsParallax from './components/ProjectsParallax';
+import './App.css'; 
 
 function App() {
   const handleScrollStart = () => {
-    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -18,33 +19,33 @@ function App() {
       {/* 2. THE CONTENT LAYER */}
       <div className="relative z-10">
         
-        {/* HERO SECTION */}
+        {/* HERO */}
         <Hero3D onStart={handleScrollStart} />
 
-        {/* PLACEHOLDER SECTIONS FOR TESTING PHASE 2 
-            (We will replace these with real components in Phase 3)
-        */}
-        
-        <section id="about" className="min-h-screen flex items-center pl-16 md:pl-32 pr-6 border-l border-white/5">
-          <div className="glass-panel p-10 rounded-2xl max-w-4xl">
-            <h2 className="text-4xl font-bold mb-6 text-gradient-blue">01. The Architecture</h2>
-            <p className="text-gray-400 text-lg leading-relaxed">
-              (Placeholder) This is where the Story Mode begins. Notice the glowing line on the left? 
-              As you scroll down, it tracks your journey. We will fill this space with your "About Me" 
-              narrative and the 3D Skills Orbit system in the next phase.
-            </p>
-          </div>
+        {/* SKILLS SECTION (The Holographic Lab) */}
+        <section id="skills" className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden py-20">
+            {/* Connecting line helper */}
+            <div className="absolute left-4 md:left-12 top-0 bottom-0 w-px bg-transparent border-l border-dashed border-white/5" />
+            
+            <div className="text-center mb-10 relative z-10 px-4">
+                <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">Technical Arsenal</h2>
+                <p className="text-gray-400 max-w-xl mx-auto">
+                    My core processing stack. A blend of modern data engineering pipelines and cloud architecture.
+                </p>
+            </div>
+            
+            <Skills3D />
         </section>
 
-        <section id="projects" className="min-h-screen flex items-center pl-16 md:pl-32 pr-6 border-l border-white/5 bg-gradient-to-b from-[#0a0a0f] to-[#11111a]">
-          <div className="glass-panel p-10 rounded-2xl max-w-4xl">
-            <h2 className="text-4xl font-bold mb-6 text-gradient-blue">02. Proof of Work</h2>
-            <p className="text-gray-400 text-lg leading-relaxed">
-              (Placeholder) This section will house the Parallax Tilt Cards for your projects. 
-              The pipeline energy flows directly into these case studies.
-            </p>
-          </div>
+        {/* PROJECTS SECTION (The Insight Gallery) */}
+        <section id="projects" className="min-h-screen relative border-t border-white/5 bg-gradient-to-b from-[#0a0a0f] to-[#11111a] pl-4 md:pl-12">
+            <ProjectsParallax />
         </section>
+
+        {/* FOOTER (Simple placeholder for now) */}
+        <footer className="py-12 text-center text-gray-600 text-sm border-t border-white/5">
+            <p>Designed & Engineered by Thrivikrama Rao</p>
+        </footer>
 
       </div>
     </div>
