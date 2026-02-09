@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import { motion, AnimatePresence, useScroll, useTransform, useSpring, useInView } from 'framer-motion';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Points, PointMaterial, Float, OrbitControls } from '@react-three/drei';
-import * as random from 'maath/random';
+// import * as random from 'maath/random';
 import * as THREE from 'three';
 import {
   ChevronDown, ArrowRight, Database, BarChart3, Globe, Code2,
