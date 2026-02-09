@@ -3,18 +3,15 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { Text, Float, Line } from '@react-three/drei';
 import * as THREE from 'three';
 
-// The Skill Data (Top 15 skills for the 3D view)
 const SKILLS = [
   "Python", "SQL", "Snowflake", "AWS", "PySpark", 
   "Tableau", "Airflow", "Docker", "Kafka", "Azure", 
   "Databricks", "Power BI", "React", "Terraform", "dbt"
 ];
 
-const Word = ({ children, position, color = "white" }) => {
+const Word = ({ children, position }) => {
   const ref = useRef();
-  
   useFrame(({ camera }) => {
-    // Make text always face the camera (Billboard effect)
     ref.current.quaternion.copy(camera.quaternion);
   });
 
@@ -23,9 +20,9 @@ const Word = ({ children, position, color = "white" }) => {
       <Text
         ref={ref}
         position={position}
-        fontSize={0.25} // Adjust for size
-        color={color}
-        font="https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu4mxK.woff" // Standard font
+        fontSize={0.3} // Increased size
+        color="#94a3b8"
+        // REMOVED custom font prop to ensure it loads default font
         anchorX="center"
         anchorY="middle"
       >
@@ -36,19 +33,15 @@ const Word = ({ children, position, color = "white" }) => {
 };
 
 const Cloud = ({ radius = 4 }) => {
-  // Create a spherical distribution of points (Fibonacci Sphere algorithm)
   const words = useMemo(() => {
     const temp = [];
-    const phi = Math.PI * (3 - Math.sqrt(5)); // Golden angle
-
+    const phi = Math.PI * (3 - Math.sqrt(5));
     for (let i = 0; i < SKILLS.length; i++) {
-      const y = 1 - (i / (SKILLS.length - 1)) * 2; // y goes from 1 to -1
-      const r = Math.sqrt(1 - y * y); // radius at y
-      const theta = phi * i; // golden angle increment
-
+      const y = 1 - (i / (SKILLS.length - 1)) * 2;
+      const r = Math.sqrt(1 - y * y);
+      const theta = phi * i;
       const x = Math.cos(theta) * r;
       const z = Math.sin(theta) * r;
-
       temp.push([x * radius, y * radius, z * radius]);
     }
     return temp;
@@ -56,25 +49,15 @@ const Cloud = ({ radius = 4 }) => {
 
   return (
     <group>
-        {/* Central Core */}
         <Float speed={1} floatIntensity={0.2}>
-            <Text fontSize={0.6} color="#3b82f6" anchorX="center" anchorY="middle" font="https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu72xKOzY.woff">
+            <Text fontSize={0.7} color="#3b82f6" anchorX="center" anchorY="middle">
                 CORE STACK
             </Text>
         </Float>
-
-        {/* Orbiting Skills */}
         {words.map((pos, i) => (
             <group key={i}>
-                <Word position={pos} color="#94a3b8">{SKILLS[i]}</Word>
-                {/* Thin connection lines to center to simulate molecular structure */}
-                <Line 
-                    points={[[0,0,0], pos]} 
-                    color="#3b82f6" 
-                    lineWidth={0.5} 
-                    transparent 
-                    opacity={0.1} 
-                />
+                <Word position={pos}>{SKILLS[i]}</Word>
+                <Line points={[[0,0,0], pos]} color="#3b82f6" lineWidth={0.5} transparent opacity={0.1} />
             </group>
         ))}
     </group>
@@ -83,30 +66,26 @@ const Cloud = ({ radius = 4 }) => {
 
 const Skills3D = () => {
   return (
-    <div className="h-[60vh] w-full flex items-center justify-center relative">
+    <div className="h-[60vh] w-full flex items-center justify-center relative pointer-events-none">
+        {/* Background Glow */}
         <div className="absolute inset-0 bg-blue-500/5 blur-3xl rounded-full opacity-20" />
+        
         <Canvas camera={{ position: [0, 0, 8], fov: 50 }} dpr={[1, 2]}>
             <fog attach="fog" args={['#0a0a0f', 5, 15]} />
-            <ambientLight intensity={0.5} />
+            <ambientLight intensity={1} />
             <group rotation={[0, 0, 0]}>
                 <Cloud radius={3.5} />
             </group>
-            {/* Auto-rotation wrapper */}
-            <mesh rotation-y={0}>
-                 <primitive object={new THREE.Group()} /> 
-            </mesh>
-            {/* Simple slow rotation script */}
             <OrbitingSystem />
         </Canvas>
     </div>
   );
 };
 
-// Component to handle the continuous rotation of the cloud
 const OrbitingSystem = () => {
     useFrame((state, delta) => {
-        state.scene.rotation.y += delta * 0.1; // Slow constant rotation
-        state.scene.rotation.x = Math.sin(state.clock.elapsedTime * 0.2) * 0.1; // Gentle wobble
+        state.scene.rotation.y += delta * 0.1;
+        state.scene.rotation.x = Math.sin(state.clock.elapsedTime * 0.2) * 0.1;
     });
     return null;
 }
